@@ -1,0 +1,28 @@
+{
+  "name": "plumber-util-test",
+  "version": "0.3.0",
+  "description": "Testing utilities for Plumber operations",
+  "main": "index",
+  "dependencies": {
+    "highland": "~1.16.2"
+  },
+  "scripts": {
+    "test": "node_modules/.bin/mocha"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git://github.com/plumberjs/plumber-util-test.git"
+  },
+  "keywords": [
+    "build",
+    "assets",
+    "pipeline",
+    "plumber",
+    "test"
+  ],
+  "author": "Sébastien Cevey <seb@cine7.net>",
+  "license": "GPL",
+  "bugs": {
+    "url": "https://github.com/plumberjs/plumber-util-test/issues"
+  }
+}
