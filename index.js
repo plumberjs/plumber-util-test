@@ -11,17 +11,18 @@ function runOperation(operation, resources) {
     };
 }
 
-function shouldYieldResources(resourcesObservable, callback, onError, onComplete) {
+function completeWithResources(resourcesObservable, callback, onError, onComplete) {
     resourcesObservable.toArray().subscribe(callback, onError, onComplete);
 }
 
 function runAndCompleteWith(operation, inputResources, callback, onError, onComplete) {
     var resourcesObs = runOperation(operation, inputResources).resources;
-    shouldYieldResources(resourcesObs, callback, onError, onComplete);
+    completeWithResources(resourcesObs, callback, onError, onComplete);
 }
 
 
 module.exports = {
     runOperation: runOperation,
+    completeWithResources: completeWithResources,
     runAndCompleteWith: runAndCompleteWith
 };
