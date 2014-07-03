@@ -1,18 +1,28 @@
-var highland = require('highland');
+var Rx = require('plumber').Rx;
 
 function runOperation(operation, resources) {
-    var resourcesStream = highland([resources]).flatten();
-    var executions = highland([resourcesStream]);
+    // TODO: use pipeline assembly from core Plumber?
+    var resourcesStream = Rx.Observable.fromArray(resources);
+    var executions = Rx.Observable.return(resourcesStream);
     var output = operation(executions);
 
     return {
-        resources: output.flatMap(function(executions) {
-            return executions;
-        })
+        resources: output.concatAll()
     };
+}
+
+function completeWithResources(resourcesObservable, callback, onError, onComplete) {
+    resourcesObservable.toArray().subscribe(callback, onError, onComplete);
+}
+
+function runAndCompleteWith(operation, inputResources, callback, onError, onComplete) {
+    var resourcesObs = runOperation(operation, inputResources).resources;
+    completeWithResources(resourcesObs, callback, onError, onComplete);
 }
 
 
 module.exports = {
-    runOperation: runOperation
+    runOperation: runOperation,
+    completeWithResources: completeWithResources,
+    runAndCompleteWith: runAndCompleteWith
 };
