@@ -7,7 +7,8 @@ function runOperation(operation, resources) {
     var output = operation(executions);
 
     return {
-        resources: output.concatAll()
+        resources: output.concatAll(),
+        executions: output
     };
 }
 
